@@ -152,7 +152,7 @@ class CmdBBSAdmin(BBSCommand):
     switch_syntax = {
         'create': '<category>=<boardname>,<order>',
         'delete': '<board>=<verify name>',
-        'rename': '<board>=<new name>',
+        'rename': '<board>=<old name>,<new name>',
         'order': '<board>=<new order>',
         'grant': '<board>=<user>,<position>',
         'revoke': '<board>=<user>,<position>',
@@ -169,6 +169,13 @@ class CmdBBSAdmin(BBSCommand):
     def switch_create(self):
         name, order = self.rhslist
         self.controller.create_board(self.session, category=self.lhs, name=name, order=order)
+        
+    def switch_delete(self):
+        self.controller.delete_board(self.session, board=self.lhs, verify=self.rhs)
+
+    def switch_rename(self):
+        old_name, new_name = self.rhslist
+        self.controller.rename_board(self.session, board=self.lhs, old_name=old_name, new_name=new_name)
 
     def switch_order(self):
         self._switch_single('order')

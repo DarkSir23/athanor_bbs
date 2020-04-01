@@ -355,7 +355,7 @@ class AthanorBBSBoard(HasBoardOps, AthanorOptionScript):
         return None
 
     def change_key(self, new_key):
-        new_key = self.validate_key(new_key, self.category, self)
+        new_key = self.validate_key(new_key, self.category)
         self.key = new_key
         return new_key
 
@@ -372,3 +372,7 @@ class AthanorBBSBoard(HasBoardOps, AthanorOptionScript):
         except LockException as e:
             raise ValueError(str(e))
         return new_locks
+
+    def validate_key(self, new_key, category):
+        # Insert code here to validate key.  Need to find out Volund's original intent.
+        return new_key

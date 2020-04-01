@@ -148,12 +148,19 @@ class AthanorBBSController(HasBoardOps, AthanorController):
         board = self.find_board(enactor, board)
         if not board.parent_position(enactor, 'operator'):
             raise ValueError("Permission denied!")
+        if not board.key == verify:
+            raise ValueError("Incorrect Verification.")
+        entities = {'enactor': enactor, 'target': board}
+        fmsg.Delete(entities).send()
+        board.delete()
 
-    def rename_board(self, session, name=None, new_name=None):
+    def rename_board(self, session, board=None, old_name=None, new_name=None):
         enactor = self._enactor(session)
-        board = self.find_board(enactor, name)
+        board = self.find_board(enactor, board)
         if not board.parent_position(enactor, 'operator'):
             raise ValueError("Permission denied!")
+        if not board.key == old_name:
+            raise ValueError("Incorrect Verification.")
         old_name = board.key
         board.change_key(new_name)
         entities = {'enactor': enactor, 'target': board}
