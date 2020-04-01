@@ -108,7 +108,7 @@ class CmdBBSCategory(BBSCommand):
         self.msg(self.controller.render_category_list(self.session))
 
     def switch_create(self):
-        self.controller.create_category(self.session, self.lhs, self.rhs)
+        self.controller.create_category(self.session, self.lhs, self.rhs if self.rhs else '')
 
     def switch_delete(self):
         self.controller.delete_category(self.session, self.lhs, self.rhs)

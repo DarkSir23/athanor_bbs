@@ -196,6 +196,7 @@ class AthanorBBSBoard(HasBoardOps, AthanorOptionScript):
     def ignore_list(self):
         return self.get_or_create_attribute(key='ignore_list', default=set())
 
+    @property
     def fullname(self):
         return f"BBS Board: ({self.prefix_order}): {self.key}"
 
